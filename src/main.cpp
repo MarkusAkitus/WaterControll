@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 int puls = 2; // Push button pin
+int resetButton = 3; // LED reset pin
 int LED = 10; // LED pin
 
 unsigned long timeWorking = 0;   // Working seconds
@@ -19,6 +20,7 @@ void setup() {
 
 void loop() {
   int pulsValue = digitalRead(puls);
+  int buttonValue = digitalRead(resetButton);
   unsigned long currentMillis = millis();
 
   if (pulsValue == LOW) { // Push button pressed
@@ -65,5 +67,11 @@ void loop() {
 
     isWorking = false;
     startPress = 0; // Teset stopped time
+  }
+
+  if (buttonValue == LOW){
+    // Reset button pressed, turn off LED
+    digitalWrite(LED, LOW);
+    ledOn = false;
   }
 }
