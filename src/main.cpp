@@ -18,7 +18,7 @@ void loop() {
   int pulsValue = digitalRead(puls);
   unsigned long currentMillis = millis();
 
-  if (pulsValue == LOW && currentMillis <= 15000) {
+  if (pulsValue == LOW) {
     // Working state
     digitalWrite(LED, HIGH);
 
