@@ -15,6 +15,7 @@ bool ledOn = false;              // Permanent LED state
 void setup() {
   Serial.begin(9600);
   pinMode(puls, INPUT_PULLUP);
+  pinMode(resetButton, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
 }
