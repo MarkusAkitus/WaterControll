@@ -5,11 +5,14 @@
 
 #include <Arduino.h>
 
-void startWorking();
-void workingSeconds();
-void stopWorking();
-void LED_on();
-void stoppedSeconds();
-void resetLED();
+void startWorking(unsigned long &timeOffOn, unsigned long &prevSecond, unsigned long &startPress, bool &isWorking);
+void workingSeconds(unsigned long &timeWorking, unsigned long &prevSecond);
+void stopWorking(int timeWorking, int &shortPressCount);
+void shortPresses(int &shortPressCount, int timeWorking);
+void stoppedSeconds(int timeOffOn, unsigned long &prevSecond);
+void autoreset(int timeWorking, int &shortPressCount, unsigned long &startMinute);
+void checkLED(int timeWorking, int &shortPressCount, bool &ledOn, int LED);
+void resetLED(int timeWorking, int &shortPressCount, bool &ledOn, int LED);
+void checkPuls(int pulsValue, bool &isWorking, unsigned long &startPress, unsigned long currentMillis, unsigned long &timeWorking, unsigned long &prevSecond, unsigned long &timeOffOn, int &shortPressCount, bool &ledOn, int LEDs);
 
 #endif

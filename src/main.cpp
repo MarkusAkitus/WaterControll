@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "functions.h"
 
 int puls = 2;         // Push button pin
 int resetButton = 3;  // LED reset pin
@@ -27,64 +28,18 @@ void loop() {
   int buttonValue = digitalRead(resetButton);
   unsigned long currentMillis = millis();
 
-  if (pulsValue == LOW) { // Button pressed
-    if (!isWorking) {
-      Serial.print("Temps entre parada-arranc: ");
-      Serial.print(timeOffOn);
-      Serial.println(" segons");
-      timeOffOn = 0;
-      prevSecond = currentMillis;
-      startPress = currentMillis;
-    }
+  checkPuls(pulsValue, isWorking, startPress, currentMillis, timeWorking, prevSecond, timeOffOn, shortPressCount, ledOn, LED);
 
-    // Count working seconds
-    if (currentMillis - prevSecond >= 1000) {
-      prevSecond = currentMillis;
-      timeWorking++;
-    }
-
-    isWorking = true;
-
-  } else { // Button released
-    if (isWorking) {
-      Serial.print("Temps treballat: ");
-      Serial.print(timeWorking);
-      Serial.println(" segons");
-
-      // Count short presses (≤15s)
-      if (timeWorking <= 15) {
-        shortPressCount++;
-      }
-
-      timeWorking = 0;
-      prevSecond = currentMillis;
-      startPress = 0;
-    }
-
-    // Count stopped seconds
-    if (currentMillis - prevSecond >= 1000) {
-      prevSecond = currentMillis;
-      timeOffOn++;
-    }
-
-    isWorking = false;
-  }
+  // Count stopped seconds
+  stoppedSeconds(timeOffOn, prevSecond);
+  isWorking = false;
 
   // Auto-reset one-minute window and short press count
-  if (currentMillis - startMinute >= 60000) { // 60.000 ms = 1 minuto
-    startMinute = currentMillis; // Reinicia ventana
-    shortPressCount = 0;          // Reinicia contador
-  }
+  autoreset(timeWorking, shortPressCount, startMinute);
 
   // Turn on LED if there are 2 short presses and LED is off
-  if (shortPressCount >= 2 && !ledOn) {
-    digitalWrite(LED, HIGH);
-    ledOn = true;
-  }
+  checkLED(timeWorking, shortPressCount, ledOn, LED);
 
-  // Resset LED
-  if (buttonValue == LOW) {
-    digitalWrite(LED, LOW);
-    ledOn = false;
-  }
+  // Reset LED
+  resetLED(timeWorking, shortPressCount, ledOn, LED);
 }
