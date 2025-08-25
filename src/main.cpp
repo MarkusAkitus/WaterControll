@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-int puls = 0; // Digital pin for the pulse sensor
+int puls = 2; // Digital pin for the pulse sensor
 int LED = 10; // LED pin
 
 unsigned long timeWorking = 0;  // Time spent working in ms
