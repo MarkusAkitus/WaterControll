@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "functions.h"
 
 int puls = 2; // Push button pin
 int resetButton = 3; // LED reset pin
