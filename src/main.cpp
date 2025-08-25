@@ -10,7 +10,7 @@ bool isWorking = false;         // Actual working state
 
 void setup() {
   Serial.begin(9600);
-  pinMode(puls, INPUT);
+  pinMode(puls, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
 }
 
