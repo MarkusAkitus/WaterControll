@@ -32,6 +32,14 @@ void loop() {
       timeOffOn = 0;
       prevSecond = currentMillis;
     }
+
+    if (currentMillis - prevSecond >= 1000) {
+      // Count working time every second
+      prevSecond = currentMillis;
+      timeWorking++;
+    }
+
+
     isWorking = true;
 
   } else {
@@ -40,7 +48,11 @@ void loop() {
 
     if (isWorking) {
       // Out of working state
+      Serial.print("Temps treballat: ");
+      Serial.print(timeWorking);
+      Serial.println(" segons");
       prevSecond = currentMillis;
+      timeWorking = 0;
     }
 
     // Count non-working time
