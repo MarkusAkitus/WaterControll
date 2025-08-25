@@ -4,5 +4,12 @@
 #define FUNCTIONS_H
 
 #include <Arduino.h>
-// The code here
+
+void startWorking();
+void workingSeconds();
+void stopWorking();
+void LED_on();
+void stoppedSeconds();
+void resetLED();
+
 #endif

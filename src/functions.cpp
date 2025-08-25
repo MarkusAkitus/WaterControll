@@ -1,3 +1,2 @@
 // Put function code here
-
-#include <Arduino.h>
+#include "functions.h"

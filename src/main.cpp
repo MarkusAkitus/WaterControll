@@ -50,7 +50,7 @@ void loop() {
       Serial.print(timeWorking);
       Serial.println(" segons");
 
-      // Turn on LED if worked less than 15 seconds
+      // Turn on LED if it worked less than 15 seconds
       if ((currentMillis - startPress) <= 15000) {
         digitalWrite(LED, HIGH);
         ledOn = true;
