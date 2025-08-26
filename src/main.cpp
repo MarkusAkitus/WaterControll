@@ -15,8 +15,8 @@ unsigned long startMinute = 0;    // Start of 1-minute window
 bool isWorking = false;           // Actual state
 bool ledOn = false;               // Permanent LED state
 int shortPressCount = 0;          // Number of short presses (≤15s)
-unsigned long lastBeep = 0;       // último cambio de estado
-bool buzzerOn = false;            // estado del buzzer
+unsigned long lastBeep = 0;       // Last state change
+bool buzzerOn = false;            // Buzzer state
 
 void setup() {
   Serial.begin(9600);
@@ -43,9 +43,9 @@ void loop() {
   // Auto-reset one-minute window and short press count
   autoreset(timeWorking, shortPressCount, startMinute);
 
-  // Turn on LED if there are 2 short presses and LED is off
+  // Turn on LED & buzzer if there are 2 short presses and LED & buzzer are off
   checkSigns(timeWorking, shortPressCount, ledOn, LED, buzzer, Do, lastBeep, buzzerOn);
 
-  // Reset LED
+  // Reset LED & buzzer
   reset(timeWorking, shortPressCount, ledOn, LED, buzzer, Do, buzzerOn);
 }
