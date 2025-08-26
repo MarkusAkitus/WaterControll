@@ -2,7 +2,7 @@
 #include "functions.h"
 
 int puls = 2;         // Push button pin
-int resetButton = 3;  // LED reset pin
+int resetButton = 3;  // Reset button pin
 int LED = 10;         // LED pin
 int buzzer = 9;       // Buzzer pin
 int Do = 261;         // Note frequencies
