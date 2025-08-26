@@ -44,8 +44,8 @@ void loop() {
   autoreset(timeWorking, shortPressCount, startMinute);
 
   // Turn on LED if there are 2 short presses and LED is off
-  checkLED(timeWorking, shortPressCount, ledOn, LED, buzzer, Do, lastBeep, buzzerOn);
+  checkSigns(timeWorking, shortPressCount, ledOn, LED, buzzer, Do, lastBeep, buzzerOn);
 
   // Reset LED
-  resetLED(timeWorking, shortPressCount, ledOn, LED, buzzer, Do, buzzerOn);
+  reset(timeWorking, shortPressCount, ledOn, LED, buzzer, Do, buzzerOn);
 }

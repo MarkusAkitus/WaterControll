@@ -54,7 +54,7 @@ void autoreset(int &timeWorking, int &shortPressCount, unsigned long &startMinut
   }
 }
 
-void checkLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, unsigned long &lastBeep, bool &buzzerOn) {
+void checkSigns(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, unsigned long &lastBeep, bool &buzzerOn) {
   if ((timeWorking > 0 || shortPressCount >= 3) && !ledOn) {
     digitalWrite(LED, HIGH);    
     ledOn = true;  // LED on
@@ -79,7 +79,7 @@ void checkLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int 
   }
 }
 
-void resetLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, bool &buzzerOn) {
+void reset(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, bool &buzzerOn) {
   if (ledOn) {
     digitalWrite(LED, LOW);
     noTone(buzzer);
