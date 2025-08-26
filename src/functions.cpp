@@ -54,35 +54,39 @@ void autoreset(int &timeWorking, int &shortPressCount, unsigned long &startMinut
   }
 }
 
-void checkLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED) {
-  // LED control based on working time and short presses
-  if (timeWorking > 0) {
-    if (!ledOn) {
-      digitalWrite(LED, HIGH); // Turn on LED
-      ledOn = true;
-    }
-  } else {
-    if (ledOn) {
-      digitalWrite(LED, LOW); // Turn off LED
-      ledOn = false;
-    }
+void checkLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, unsigned long &lastBeep, bool &buzzerOn) {
+  if ((timeWorking > 0 || shortPressCount >= 3) && !ledOn) {
+    digitalWrite(LED, HIGH);    
+    ledOn = true;  // LED on
   }
 
-  if (shortPressCount >= 3) {
-    if (!ledOn) {
-      digitalWrite(LED, HIGH); // Turn on LED
-      ledOn = true;
+  // If LED = on → buzzer beeps every second
+  if (ledOn) {
+    unsigned long currentMillis = millis();
+
+    if (buzzerOn && currentMillis - lastBeep >= 500) {
+      // If it is toning during 500ms → turn off
+      noTone(buzzer);
+      buzzerOn = false;
+      lastBeep = currentMillis;
+    } 
+    else if (!buzzerOn && currentMillis - lastBeep >= 500) {
+      // If it is stopped durint 500 ms → turn on
+      tone(buzzer, Do);
+      buzzerOn = true;
+      lastBeep = currentMillis;
     }
   }
 }
 
-void resetLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED) {
-  // Reset LED and short press count
+void resetLED(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, bool &buzzerOn) {
   if (ledOn) {
-    digitalWrite(LED, LOW); // Turn off LED
+    digitalWrite(LED, LOW);
+    noTone(buzzer);
     ledOn = false;
+    buzzerOn = false;
   }
-  shortPressCount = 0; // Reset short press count
+  shortPressCount = 0;
 }
 
 void checkPuls(int pulsValue, bool &isWorking, unsigned long &startPress, unsigned long currentMillis, unsigned long &timeWorking, unsigned long &prevSecond, unsigned long &timeOffOn, int &shortPressCount, bool &ledOn, int LED) {
