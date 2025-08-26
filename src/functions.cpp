@@ -1,4 +1,4 @@
-// Put function code here
+// Define functions here
 #include "functions.h"
 
 void startWorking(int &timeOffOn, unsigned long &prevSecond, unsigned long &startPress, bool &isWorking) {
