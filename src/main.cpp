@@ -31,7 +31,7 @@ void setup() {
 
 void loop() {
   int pulsValue = digitalRead(puls);
-  int buttonValue = digitalRead(resetButton);
+  // int buttonValue = digitalRead(resetButton);
   unsigned long currentMillis = millis();
 
   checkPuls(pulsValue, isWorking, startPress, currentMillis, timeWorking, prevSecond, timeOffOn, shortPressCount, ledOn, LED);

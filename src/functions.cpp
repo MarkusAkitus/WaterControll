@@ -1,7 +1,7 @@
 // Define functions here
 #include "functions.h"
 
-void startWorking(int &timeOffOn, unsigned long &prevSecond, unsigned long &startPress, bool &isWorking) {
+void startWorking(unsigned long &timeOffOn, unsigned long &prevSecond, unsigned long &startPress, bool &isWorking) {
     if (!isWorking) {
         // Working state started
         Serial.print("Temps entre parada-arranc: ");
@@ -22,7 +22,7 @@ void workingSeconds(unsigned long &timeWorking, unsigned long &prevSecond) {
   }
 }
 
-void stopWorking(int &timeWorking, int &shortPressCount) {
+void stopWorking(unsigned long &timeWorking, int &shortPressCount) {
   // Count short presses (≤15s)
   if (timeWorking <= 15) {
     shortPressCount++;
@@ -30,7 +30,7 @@ void stopWorking(int &timeWorking, int &shortPressCount) {
   timeWorking = 0;
 }
 
-void shortPresses(int &shortPressCount, int &timeWorking) {
+void shortPresses(int &shortPressCount, unsigned long &timeWorking) {
   // Count short presses (≤15s)
   if (timeWorking <= 15) {
     shortPressCount++;
@@ -45,7 +45,7 @@ void stoppedSeconds(unsigned long &timeOffOn, unsigned long &prevSecond) {
   }
 }
 
-void autoreset(int &timeWorking, int &shortPressCount, unsigned long &startMinute) {
+void autoreset(unsigned long &timeWorking, int &shortPressCount, unsigned long &startMinute) {
   // Auto-reset after one minute
   if (millis() - startMinute >= 60000) {
     timeWorking = 0;
@@ -54,7 +54,7 @@ void autoreset(int &timeWorking, int &shortPressCount, unsigned long &startMinut
   }
 }
 
-void checkSigns(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, unsigned long &lastBeep, bool &buzzerOn) {
+void checkSigns(unsigned long &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, unsigned long &lastBeep, bool &buzzerOn) {
   if ((timeWorking > 0 || shortPressCount >= 3) && !ledOn) {
     digitalWrite(LED, HIGH);    
     ledOn = true;  // LED on
@@ -79,7 +79,7 @@ void checkSigns(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, in
   }
 }
 
-void reset(int &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, bool &buzzerOn) {
+void reset(unsigned long &timeWorking, int &shortPressCount, bool &ledOn, int LED, int buzzer, int Do, bool &buzzerOn) {
   if (ledOn) {
     digitalWrite(LED, LOW);
     noTone(buzzer);
